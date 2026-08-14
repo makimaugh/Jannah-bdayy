@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Birthday Cake 🎂</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      #mainTitle {
+        font-size: 48px;
+        font-family: 'Pixelify Sans', sans-serif;
+        margin-bottom: 8px;
+        margin-top: 40px;
+      }
+
+      #subTitle {
+        font-size: 18px;
+        font-family: 'Pixelify Sans', sans-serif;
+        color: #ffffff;
+      }
+
+      /* Download Button for Lightbox */
+      .download-btn {
+        position: absolute;
+        bottom: 40px;
+        padding: 10px 25px;
+        background-color: transparent;
+        color: #ffffff;
+        border: 2px solid #db9498;
+        border-radius: 20px;
+        font-family: 'Pixelify Sans', sans-serif;
+        font-size: 1.1rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        z-index: 1001; /* Keeps it above the image */
+      }
+
+      .download-btn:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        transform: scale(1.05);
+      }
+
+      @media (max-width: 768px) {
+        .download-btn {
+          bottom: 25px;
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    
+    <!-- Floating Flowers Background -->
+    <div class="flowers-container">
+      <div class="flower">🌸</div>
+      <div class="flower">🌺</div>
+      <div class="flower">🌸</div>
+      <div class="flower">💮</div>
+      <div class="flower">🌺</div>
+      <div class="flower">🌸</div>
+      <div class="flower">💮</div>
+      <div class="flower">🌸</div>
+    </div>
+
+    <div class="container">
+      <div id="birthdayText"></div>
+
+      <!-- Wrapper for Side-by-Side Layout -->
+      <div class="side-by-side">
+        
+        <!-- Left Side: The Cake -->
+        <div class="cake-container">
+          <div class="cake" id="cake"></div>
+        </div>
+
+        <!-- Right Side: The Picture Frame AND Music Player -->
+        <div class="right-column">
+          
+          <div class="picture-frame" id="pictureFrame">
+            <div class="photo-placeholder">Your Photo Here</div>
+            <img
+              src="bdaygirl.png"
+              alt="Birthday Girl"
+              class="framed-photo"
+            />
+          </div>
+
+          <!-- NEW: Music Player UI -->
+          <div class="music-player">
+            <div class="progress-bar">
+              <div class="progress"></div>
+              <div class="progress-dot"></div>
+            </div>
+            <div class="controls">
+              <span class="icon loop">&#10227;</span>
+              <span class="icon prev">&#9198;</span>
+              <div class="play-pause-btn" id="playBtn">&#9654;</div>
+              <span class="icon next">&#9197;</span>
+              <span class="icon heart">&#9825;</span>
+            </div>
+            <!-- Hidden Audio Element -->
+            <audio id="bgMusic" src="song/bday.mp3" loop></audio>
+          </div>
+
+        </div> <!-- End of right-column -->
+        
+      </div> <!-- End of side-by-side -->
+
+      <!-- Message Box -->
+      <div class="message-box">
+        <p>Happy Birthday, Jannah! Even though we've only known each other for a short time, 
+          I am so grateful that I have met you. I hope your day is filled with joy, laughter, and lots of cake. 
+          Make a wish and blow out the candles—just don't wish for Ginger, because you're still not getting my cat! 
+          Wishing you all the best for the year ahead!</p>
+      </div>
+      
+      <div style="text-align: center; margin-top: 20px;">
+          <a href="gallery.html" class="next-page-btn">click clickk ;]</a>
+      </div>
+
+      <div id="lightbox" class="lightbox-modal">
+        <img id="lightbox-img" src="" alt="Zoomed Photo" />
+        <a id="download-btn" href="" download class="download-btn">Download Image</a>
+      </div>
+
+    </div>
+
+    <script>
+      // Read URL params
+      const params = new URLSearchParams(window.location.search);
+      const name = params.get("name") || "Jannah";
+      let candleCount = parseInt(params.get("candles")) || 4;
+      candleCount = Math.min(Math.max(candleCount, 1), 30);
+
+      const birthdayText = document.getElementById("birthdayText");
+      birthdayText.innerHTML = `
+        <div id="mainTitle">Happy Birthday, ${name}!</div>
+        <div id="subTitle">Make a wish and blow candles.</div>
+      `;
+
+      const cake = document.getElementById("cake");
+
+      const colors = [
+        "green-candle",
+        "purple-candle",
+        "blue-candle",
+        "yellow-candle",
+      ];
+      const CAKE_VISUAL_WIDTH = 35;
+
+      function createCandles(count) {
+        cake.innerHTML = "";
+        const CANDLE_VISUAL_WIDTH = 2;
+        const availableWidth = CAKE_VISUAL_WIDTH;
+        const candlesPerRow = 6;
+        const rowCount = Math.ceil(count / candlesPerRow);
+        const shiftAmount = 4;
+
+        for (let i = 0; i < count; i++) {
+          const candle = document.createElement("div");
+          candle.classList.add("candle");
+          const colorClass = colors[Math.floor(Math.random() * colors.length)];
+          candle.classList.add(colorClass);
+
+          const row = Math.floor(i / candlesPerRow);
+          const col = i % candlesPerRow;
+          const totalCandlesInRow = Math.min(
+            candlesPerRow,
+            count - row * candlesPerRow
+          );
+          const rowSpacing = availableWidth / (totalCandlesInRow + 1);
+
+          const leftBase = rowSpacing * (col + 1) - CANDLE_VISUAL_WIDTH / 2 + 5;
+          const rowShift = row % 2 === 0 ? 0 : shiftAmount;
+
+          candle.style.position = "absolute";
+          candle.style.top = `${10 + row * 3}px`;
+          candle.style.left = `${leftBase - rowShift + 4}px`;
+
+          cake.appendChild(candle);
+        }
+      }
+
+      createCandles(candleCount);
+
+      // === Microphone / Blow Detection ===
+      async function startMicDetection() {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({
+            audio: true,
+          });
+          const audioContext = new (window.AudioContext ||
+            window.webkitAudioContext)();
+          const source = audioContext.createMediaStreamSource(stream);
+          const analyser = audioContext.createAnalyser();
+          analyser.fftSize = 512;
+
+          source.connect(analyser);
+
+          const dataArray = new Uint8Array(analyser.frequencyBinCount);
+
+          let blown = false;
+
+          function detectBlow() {
+            analyser.getByteFrequencyData(dataArray);
+
+            let highFreqSum = 0;
+            let lowFreqSum = 0;
+
+            const midpoint = dataArray.length / 2;
+
+            for (let i = 0; i < dataArray.length; i++) {
+              if (i < midpoint) {
+                lowFreqSum += dataArray[i];
+              } else {
+                highFreqSum += dataArray[i];
+              }
+            }
+
+            const highAvg = highFreqSum / (dataArray.length / 2);
+            const lowAvg = lowFreqSum / (dataArray.length / 2);
+
+            const ratio = highAvg / (lowAvg + 1);
+
+            const BLOW_RATIO_THRESHOLD = 0.5;
+
+            if (ratio > BLOW_RATIO_THRESHOLD && !blown) {
+              blown = true;
+              blowOutCandles();
+            }
+
+            requestAnimationFrame(detectBlow);
+          }
+
+          detectBlow();
+        } catch (err) {
+          console.error("Mic access error:", err);
+        }
+      }
+
+      function blowOutCandles() {
+        const candles = document.querySelectorAll(".candle");
+        candles.forEach((candle) => {
+          const delay = Math.random() * 1000;
+          setTimeout(() => {
+            colors.forEach((color) => {
+              if (candle.classList.contains(color)) {
+                candle.classList.add("blown");
+              }
+            });
+          }, delay);
+        });
+
+        setTimeout(() => {
+          const subTitle = document.getElementById("subTitle");
+          subTitle.textContent = `Yayy! Wishing you the happiest birthday ever!! 🎉`;
+        }, 1200);
+      }
+
+      // === Lightbox Zoom Functionality para sa Main Page ===
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const downloadBtn = document.getElementById('download-btn');
+      const framedPhoto = document.querySelector('.framed-photo');
+
+      if (framedPhoto) {
+        framedPhoto.addEventListener('click', () => {
+          lightbox.style.display = 'flex';
+          lightboxImg.src = framedPhoto.src;
+          
+          // Set the link to the image source
+          downloadBtn.href = framedPhoto.src; 
+          
+          // Extract the file name and force download
+          const fileName = framedPhoto.src.split('/').pop();
+          downloadBtn.download = fileName; 
+        });
+      }
+
+      // Prevent closing if clicking the image or download button
+      lightbox.addEventListener('click', (e) => {
+        if (e.target !== lightboxImg && e.target !== downloadBtn) {
+          lightbox.style.display = 'none';
+        }
+      });
+
+      startMicDetection();
+
+      // === Music Player Functionality with Persistent State ===
+      const playBtn = document.getElementById('playBtn');
+      const bgMusic = document.getElementById('bgMusic');
+
+      // Basahin kung may saved state na dati
+      window.addEventListener('load', () => {
+        const isPlaying = localStorage.getItem('isPlaying') === 'true';
+        const savedTime = parseFloat(localStorage.getItem('audioTime')) || 0;
+
+        bgMusic.currentTime = savedTime;
+        if (isPlaying) {
+          bgMusic.volume = 0.5;
+          bgMusic.play().then(() => {
+            playBtn.innerHTML = '&#10074;&#10074;'; // Pause Icon
+            playBtn.classList.add('playing');
+          }).catch(e => console.log("Autoplay blocked:", e));
+        }
+      });
+
+      playBtn.addEventListener('click', async () => {
+        try {
+          if (!bgMusic.paused) {
+            bgMusic.pause();
+            playBtn.innerHTML = '&#9654;'; // Play Icon
+            playBtn.classList.remove('playing');
+            localStorage.setItem('isPlaying', 'false');
+          } else {
+            bgMusic.volume = 0.5;
+            await bgMusic.play(); 
+            playBtn.innerHTML = '&#10074;&#10074;'; // Pause Icon
+            playBtn.classList.add('playing');
+            localStorage.setItem('isPlaying', 'true');
+          }
+        } catch (error) {
+          console.error("Audio error:", error);
+          alert("Hindi ma-play ang kanta.");
+        }
+      });
+
+      // Regular na i-save ang current time habang tumutugtog
+      setInterval(() => {
+        if (!bgMusic.paused) {
+          localStorage.setItem('audioTime', bgMusic.currentTime);
+          localStorage.setItem('isPlaying', 'true');
+        }
+      }, 500);
+      
+    </script>
+  </body>
+</html>

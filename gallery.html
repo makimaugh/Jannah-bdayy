@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jannah's Gallery ✨</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .gallery-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 25px;
+        flex-wrap: wrap;
+        max-width: 1200px;
+        margin-top: 30px;
+        z-index: 5;
+      }
+
+      /* 4 Picture Frames Layout */
+      .gallery-frame {
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        padding: 10px;
+        width: 220px;
+        height: 270px;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-sizing: border-box;
+        transition: transform 0.3s ease;
+      }
+
+      .gallery-frame:nth-child(1) { transform: rotate(-3deg); }
+      .gallery-frame:nth-child(2) { transform: rotate(2deg); }
+      .gallery-frame:nth-child(3) { transform: rotate(-2deg); }
+      .gallery-frame:nth-child(4) { transform: rotate(3deg); }
+
+      .gallery-frame:hover {
+        transform: rotate(0deg) scale(1.05);
+        z-index: 10;
+      }
+
+      .gallery-img {
+        width: 100%;
+        height: calc(100% - 30px);
+        object-fit: cover;
+        border-radius: 4px;
+        cursor: zoom-in;
+      }
+
+      .gallery-caption {
+        font-family: 'Pixelify Sans', sans-serif;
+        color: #745078;
+        font-size: 1rem;
+        margin-top: 6px;
+      }
+
+      .back-btn {
+        margin-top: 40px;
+        display: inline-block;
+        padding: 10px 25px;
+        background-color: transparent;
+        color: #ffffff;
+        border: 2px solid #db9498;
+        border-radius: 20px;
+        font-family: 'Pixelify Sans', sans-serif;
+        font-size: 1.1rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
+
+      .back-btn:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        transform: scale(1.05);
+      }
+
+      /* Download Button for Lightbox */
+      .download-btn {
+        position: absolute;
+        bottom: 40px;
+        padding: 10px 25px;
+        background-color: transparent;
+        color: #ffffff;
+        border: 2px solid #db9498;
+        border-radius: 20px;
+        font-family: 'Pixelify Sans', sans-serif;
+        font-size: 1.1rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        z-index: 1001; /* Keeps it above the image */
+      }
+
+      .download-btn:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        transform: scale(1.05);
+      }
+
+      /* MOBILE VIEW: Naka-vertical / pataas-pababa ang 4 frames */
+      @media (max-width: 768px) {
+        .gallery-container {
+          flex-direction: column;
+          gap: 20px;
+        }
+        
+        .gallery-frame {
+          width: 200px;
+          height: 240px;
+          transform: rotate(0deg) !important;
+        }
+
+        .download-btn {
+          bottom: 25px;
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+
+    <audio id="persistentAudio" src="song/bday.mp3" loop></audio>
+
+    <!-- Floating Flowers Background -->
+    <div class="flowers-container">
+      <div class="flower">🌸</div>
+      <div class="flower">🌺</div>
+      <div class="flower">🌸</div>
+      <div class="flower">💮</div>
+      <div class="flower">🌺</div>
+      <div class="flower">🌸</div>
+      <div class="flower">💮</div>
+      <div class="flower">🌸</div>
+    </div>
+
+    <div class="container">
+      <div id="mainTitle" style="font-size: 42px; color: #ffffff; margin-top: 30px;">Pixelated Jannah</div>
+      <div id="subTitle" style="margin-bottom: 20px; color: #ffffff; ">some captured moments</div>
+
+      <!-- 4 Picture Frames (Horizontal sa Web, Vertical sa Mobile) -->
+      <div class="gallery-container">
+        
+        <div class="gallery-frame">
+          <img src="photos/j1.jpg" alt="😾" class="gallery-img" />
+          <div class="gallery-caption">😾</div>
+        </div>
+
+        <div class="gallery-frame">
+          <img src="photos/j2.jpg" alt="😾" class="gallery-img" />
+          <div class="gallery-caption">😾</div>
+        </div>
+
+        <div class="gallery-frame">
+          <img src="photos/j3.jpg" alt="😾" class="gallery-img" />
+          <div class="gallery-caption">😾</div>
+        </div>
+
+        <div class="gallery-frame">
+          <img src="photos/j4.png" alt="😾" class="gallery-img" />
+          <div class="gallery-caption">😾</div>
+        </div>
+
+        <div id="lightbox" class="lightbox-modal">
+          <img id="lightbox-img" src="" alt="Zoomed Photo" />
+          <a id="download-btn" href="" download class="download-btn">Download Image</a>
+        </div>
+        
+      </div>
+
+      <!-- Back Button para makabalik sa main page -->
+      <div style="display: flex; gap: 15px; justify-content: center; margin-top: 40px; flex-wrap: wrap;">
+        <a href="index.html" class="back-btn" style="margin-top: 0;">← back to cake</a>
+        <a href="cats.html" class="back-btn" style="margin-top: 0; border-color: #f6f1d8; color: #f6f1d8;">her cats 🐾</a>
+      </div>
+      
+    </div>
+
+    <script>
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const downloadBtn = document.getElementById('download-btn');
+      const galleryImages = document.querySelectorAll('.gallery-img');
+
+      galleryImages.forEach(img => {
+        img.addEventListener('click', () => {
+          lightbox.style.display = 'flex';
+          lightboxImg.src = img.src;
+          
+          // Set the link to the image source
+          downloadBtn.href = img.src; 
+          
+          // Extract the file name and force download
+          const fileName = img.src.split('/').pop();
+          downloadBtn.download = fileName; 
+        });
+      });
+
+      // Prevent closing if clicking the image or download button
+      lightbox.addEventListener('click', (e) => {
+        if (e.target !== lightboxImg && e.target !== downloadBtn) {
+          lightbox.style.display = 'none';
+        }
+      });
+
+      const bgMusic = document.getElementById('persistentAudio');
+
+      window.addEventListener('load', () => {
+        const isPlaying = localStorage.getItem('isPlaying') === 'true';
+        const savedTime = parseFloat(localStorage.getItem('audioTime')) || 0;
+
+        bgMusic.currentTime = savedTime;
+        if (isPlaying) {
+          bgMusic.volume = 0.5;
+          bgMusic.play().catch(e => console.log("Autoplay blocked:", e));
+        }
+      });
+
+      // Patuloy na i-update ang oras sa background
+      setInterval(() => {
+        if (!bgMusic.paused) {
+          localStorage.setItem('audioTime', bgMusic.currentTime);
+          localStorage.setItem('isPlaying', 'true');
+        }
+      }, 500);
+    </script>
+  </body>
+</html>
