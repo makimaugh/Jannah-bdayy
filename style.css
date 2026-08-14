@@ -311,6 +311,7 @@ html, body {
 .framed-photo, .gallery-img {
   cursor: zoom-in;
 }
+
 /* === MOBILE RESPONSIVENESS (CAKE SA TAAS NG PICTURE SA MOBILE) === */
 @media (max-width: 768px) {
   .side-by-side {
@@ -327,7 +328,7 @@ html, body {
   .cake {
     transform: scale(3.5); 
     top: -40px; 
-    left: 65px; 
+    left: 30px; 
   }
 
   .right-column {
