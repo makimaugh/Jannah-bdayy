@@ -81,6 +81,7 @@ html, body {
   -moz-animation: cake 1s infinite;
   -o-animation: cake 1s infinite;
 }
+
 /* Container para magpatong ang Picture at Player */
 .right-column {
   display: flex;
@@ -310,7 +311,6 @@ html, body {
 .framed-photo, .gallery-img {
   cursor: zoom-in;
 }
-
 /* === MOBILE RESPONSIVENESS (CAKE SA TAAS NG PICTURE SA MOBILE) === */
 @media (max-width: 768px) {
   .side-by-side {
