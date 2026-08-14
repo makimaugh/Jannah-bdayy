@@ -71,8 +71,8 @@ html, body {
 /* 4. Center the Pixel Art Cake (Desktop) */
 .cake {
   position: absolute;
-  top: -140px; 
-  left: -20px; 
+  top: -130px; 
+  left: -60px; 
   transform: scale(8.5);
   z-index: 1;
   overflow: visible;
@@ -81,7 +81,6 @@ html, body {
   -moz-animation: cake 1s infinite;
   -o-animation: cake 1s infinite;
 }
-
 /* Container para magpatong ang Picture at Player */
 .right-column {
   display: flex;
