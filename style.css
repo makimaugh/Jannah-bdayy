@@ -71,8 +71,8 @@ html, body {
 /* 4. Center the Pixel Art Cake (Desktop) */
 .cake {
   position: absolute;
-  top: -130px; 
-  left: -60px; 
+  top: -140px; 
+  left: -20px; 
   transform: scale(8.5);
   z-index: 1;
   overflow: visible;
