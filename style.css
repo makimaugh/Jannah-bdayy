@@ -329,7 +329,7 @@ html, body {
   .cake {
     transform: scale(3.5); 
     top: -50px;
-    left: 65px;
+    left: calc(50% - 112px);
   }
 
   .right-column {
