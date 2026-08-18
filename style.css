@@ -318,6 +318,7 @@ html, body {
     flex-direction: column; 
     gap: 40px; 
     margin-top: 20px;
+    align-items: center;
   }
 
   .cake-container {
@@ -328,8 +329,7 @@ html, body {
   .cake {
     transform: scale(3.5); 
     top: -50px;
-    align-items: center;
-    justify-content: center;
+    left: 65px;
   }
 
   .right-column {
