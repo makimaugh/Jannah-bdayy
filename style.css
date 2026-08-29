@@ -13,9 +13,24 @@ html, body {
   justify-content: center;
   align-items: center;
   background-color: #745078; 
-  background-image: url('bgcats.png'); 
-  background-repeat: repeat;
-  background-size: auto;
+}
+
+/* Fixed, non-tiling cat background. Using a dedicated position:fixed layer
+   (instead of background-attachment:fixed on body) so it stays steady while
+   scrolling on every browser, including mobile Safari, which does not
+   support fixed background-attachment reliably. */
+.cats-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('bgcats.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .flowers-container {
@@ -267,7 +282,7 @@ html, body {
   position: relative;
   width: 90%;
   max-width: 380px;
-  margin: 0 auto 30px auto;
+  margin: 65px auto 30px auto;
   text-align: center;
 }
 
