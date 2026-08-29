@@ -14,14 +14,14 @@
     <style>
       #mainTitle {
         font-size: 48px;
-        font-family: 'Pixelify Sans', sans-serif;
+        font-family: 'Pixelify Sans', monospace;
         margin-bottom: 8px;
         margin-top: 40px;
       }
 
       #subTitle {
         font-size: 18px;
-        font-family: 'Pixelify Sans', sans-serif;
+        font-family: 'Pixelify Sans', monospace;
         color: #ffffff;
       }
 
@@ -34,7 +34,7 @@
         color: #ffffff;
         border: 2px solid #db9498;
         border-radius: 20px;
-        font-family: 'Pixelify Sans', sans-serif;
+        font-family: 'Pixelify Sans', monospace;
         font-size: 1.1rem;
         text-decoration: none;
         transition: all 0.3s ease;
@@ -71,57 +71,111 @@
     <div class="container">
       <div id="birthdayText"></div>
 
-      <!-- Wrapper for Side-by-Side Layout -->
-      <div class="side-by-side">
-        
-        <!-- Left Side: The Cake -->
-        <div class="cake-container">
-          <div class="cake" id="cake"></div>
+      <!-- Make a Wish -->
+      <div class="wish-section" id="wishSection">
+        <div class="wish-sparkle-field" id="wishSparkleField"></div>
+
+        <form id="wishForm" class="wish-form">
+          <input
+            type="text"
+            id="wishInput"
+            class="wish-input"
+            placeholder="Type your birthday wish..."
+            maxlength="80"
+            autocomplete="off"
+          />
+          <button type="submit" class="wish-submit-btn">✨ Make a Wish</button>
+        </form>
+
+        <div id="wishDisplay" class="wish-display" style="display: none;">
+          <p id="wishText" class="wish-text"></p>
+          <button id="wishAgainBtn" class="wish-again-btn">Make another wish</button>
+        </div>
+      </div>
+
+      <!-- Hero Layout: groups the message, cake, and photo so the desktop view can
+           arrange them as a single row (see the desktop-only rules in style.css).
+           This wrapper has no effect on mobile: it stays a plain block, so the
+           mobile stacking order/appearance is unchanged. -->
+      <div class="hero-layout">
+
+        <!-- Message Box -->
+        <div class="message-box">
+          <p>Happy Birthday, Jannah! Even though we've only known each other for a short time, 
+            I am so grateful that I have met you. I hope your day is filled with joy, laughter, and lots of cake. 
+            Make a wish and blow out the candles—just don't wish for Ginger, because you're still not getting my cat! 
+            Wishing you all the best for the year ahead!</p>
         </div>
 
-        <!-- Right Side: The Picture Frame AND Music Player -->
-        <div class="right-column">
+        <!-- Wrapper for Side-by-Side Layout -->
+        <div class="side-by-side">
           
-          <div class="picture-frame" id="pictureFrame">
-            <div class="photo-placeholder">Your Photo Here</div>
-            <img
-              src="bdaygirl.png"
-              alt="Birthday Girl"
-              class="framed-photo"
-            />
+          <!-- Left Side: The Cake -->
+          <div class="cake-container">
+            <div class="cake" id="cake"></div>
           </div>
 
-          <!-- NEW: Music Player UI -->
-          <div class="music-player">
-            <div class="progress-bar">
-              <div class="progress"></div>
-              <div class="progress-dot"></div>
+          <!-- Right Side: The Picture Frame AND Music Player -->
+          <div class="right-column">
+            
+            <div class="picture-frame" id="pictureFrame">
+              <div class="photo-placeholder">Your Photo Here</div>
+              <img
+                src="bdaygirl.png"
+                alt="Birthday Girl"
+                class="framed-photo"
+              />
             </div>
-            <div class="controls">
-              <span class="icon loop">&#10227;</span>
-              <span class="icon prev">&#9198;</span>
-              <div class="play-pause-btn" id="playBtn">&#9654;</div>
-              <span class="icon next">&#9197;</span>
-              <span class="icon heart">&#9825;</span>
+
+            <!-- NEW: Music Player UI -->
+            <div class="music-player">
+              <div class="progress-bar">
+                <div class="progress"></div>
+                <div class="progress-dot"></div>
+              </div>
+              <div class="controls">
+                <span class="icon loop">&#10227;</span>
+                <span class="icon prev">&#9198;</span>
+                <div class="play-pause-btn" id="playBtn">&#9654;</div>
+                <span class="icon next">&#9197;</span>
+                <span class="icon heart">&#9825;</span>
+              </div>
+              <!-- Hidden Audio Element -->
+              <audio id="bgMusic" src="song/bday.mp3" loop></audio>
             </div>
-            <!-- Hidden Audio Element -->
-            <audio id="bgMusic" src="song/bday.mp3" loop></audio>
+
+          </div> <!-- End of right-column -->
+          
+        </div> <!-- End of side-by-side -->
+
+        <div class="cta-wrapper">
+            <a href="gallery.html" class="next-page-btn">click clickk ;]</a>
+        </div>
+
+      </div> <!-- End of hero-layout -->
+
+      <!-- Surprise Present -->
+      <div class="surprise-section" id="surpriseSection">
+        <div class="surprise-sparkle-field" id="surpriseSparkleField"></div>
+
+        <div class="gift-box" id="giftBox">
+          <div class="gift-body">🎁</div>
+          <div class="gift-label">tap to open your surprise!</div>
+        </div>
+
+        <div class="surprise-reveal" id="surpriseReveal" style="display: none;">
+          <div class="surprise-card">
+            <p class="surprise-title">🎉 Surprise!</p>
+            <p class="surprise-message">A little birthday coupon book, redeemable anytime:</p>
+            <ul class="surprise-list">
+              <li>🎬 One (1) free movie night, my treat</li>
+              <li>🍰 A cake date whenever you want</li>
+              <li>💬 Unlimited kwento &amp; rant sessions</li>
+              <li>🐈 Supervised cuddle time with Ginger</li>
+            </ul>
+            <button class="wish-again-btn" id="wrapAgainBtn">🎁 Wrap it back up</button>
           </div>
-
-        </div> <!-- End of right-column -->
-        
-      </div> <!-- End of side-by-side -->
-
-      <!-- Message Box -->
-      <div class="message-box">
-        <p>Happy Birthday, Jannah! Even though we've only known each other for a short time, 
-          I am so grateful that I have met you. I hope your day is filled with joy, laughter, and lots of cake. 
-          Make a wish and blow out the candles—just don't wish for Ginger, because you're still not getting my cat! 
-          Wishing you all the best for the year ahead!</p>
-      </div>
-      
-      <div style="text-align: center; margin-top: 20px;">
-          <a href="gallery.html" class="next-page-btn">click clickk ;]</a>
+        </div>
       </div>
 
       <div id="lightbox" class="lightbox-modal">
@@ -188,6 +242,107 @@
       }
 
       createCandles(candleCount);
+
+      // === Make a Wish ===
+      const wishForm = document.getElementById("wishForm");
+      const wishInput = document.getElementById("wishInput");
+      const wishDisplay = document.getElementById("wishDisplay");
+      const wishTextEl = document.getElementById("wishText");
+      const wishAgainBtn = document.getElementById("wishAgainBtn");
+      const wishSparkleField = document.getElementById("wishSparkleField");
+
+      const sparkleChars = ["✨", "⭐", "💫", "🌟"];
+
+      function spawnSparkles(count = 18) {
+        for (let i = 0; i < count; i++) {
+          const sparkle = document.createElement("span");
+          sparkle.className = "sparkle";
+          sparkle.textContent =
+            sparkleChars[Math.floor(Math.random() * sparkleChars.length)];
+          sparkle.style.left = `${Math.random() * 100}%`;
+          sparkle.style.top = `${Math.random() * 100}%`;
+          sparkle.style.animationDelay = `${Math.random() * 0.35}s`;
+          sparkle.style.fontSize = `${1 + Math.random() * 1}rem`;
+          wishSparkleField.appendChild(sparkle);
+          setTimeout(() => sparkle.remove(), 1500);
+        }
+      }
+
+      if (wishForm) {
+        wishForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const value = wishInput.value.trim();
+
+          if (!value) {
+            wishInput.classList.remove("shake");
+            void wishInput.offsetWidth; // restart animation
+            wishInput.classList.add("shake");
+            return;
+          }
+
+          spawnSparkles();
+
+          setTimeout(() => {
+            wishTextEl.textContent = `"${value}" 🎂`;
+            wishForm.style.display = "none";
+            wishDisplay.style.display = "block";
+          }, 250);
+        });
+      }
+
+      if (wishAgainBtn) {
+        wishAgainBtn.addEventListener("click", () => {
+          wishDisplay.style.display = "none";
+          wishForm.style.display = "flex";
+          wishInput.value = "";
+          wishInput.focus();
+          spawnSparkles(10);
+        });
+      }
+
+      // === Surprise Present ===
+      const giftBox = document.getElementById("giftBox");
+      const surpriseReveal = document.getElementById("surpriseReveal");
+      const wrapAgainBtn = document.getElementById("wrapAgainBtn");
+      const surpriseSparkleField = document.getElementById(
+        "surpriseSparkleField"
+      );
+
+      function spawnSurpriseSparkles(count = 20) {
+        for (let i = 0; i < count; i++) {
+          const sparkle = document.createElement("span");
+          sparkle.className = "sparkle";
+          sparkle.textContent =
+            sparkleChars[Math.floor(Math.random() * sparkleChars.length)];
+          sparkle.style.left = `${Math.random() * 100}%`;
+          sparkle.style.top = `${Math.random() * 100}%`;
+          sparkle.style.animationDelay = `${Math.random() * 0.35}s`;
+          sparkle.style.fontSize = `${1 + Math.random() * 1}rem`;
+          surpriseSparkleField.appendChild(sparkle);
+          setTimeout(() => sparkle.remove(), 1500);
+        }
+      }
+
+      if (giftBox) {
+        giftBox.addEventListener("click", () => {
+          if (giftBox.classList.contains("opened")) return;
+          giftBox.classList.add("opened");
+          spawnSurpriseSparkles();
+
+          setTimeout(() => {
+            giftBox.style.display = "none";
+            surpriseReveal.style.display = "block";
+          }, 380);
+        });
+      }
+
+      if (wrapAgainBtn) {
+        wrapAgainBtn.addEventListener("click", () => {
+          surpriseReveal.style.display = "none";
+          giftBox.style.display = "flex";
+          giftBox.classList.remove("opened");
+        });
+      }
 
       // === Microphone / Blow Detection ===
       async function startMicDetection() {
@@ -338,7 +493,52 @@
           localStorage.setItem('isPlaying', 'true');
         }
       }, 500);
-      
+
+      // === Click-the-Cats Easter Egg ===
+      // The background is wall-to-wall cats and cat-themed decorations, so
+      // any click on the decorative background (not on buttons/cards/other
+      // UI) pops a little heart/paw + "meow~" right at the cursor.
+      (function () {
+        const catReactionEmojis = ["❤️", "🐾"];
+        const catReactionWords = ["meow~", "purr~", "mrow!", "nya~"];
+
+        function spawnCatReaction(clientX, clientY) {
+          const el = document.createElement("div");
+          el.className = "cat-reaction";
+          el.style.left = `${clientX}px`;
+          el.style.top = `${clientY}px`;
+
+          const emoji = document.createElement("span");
+          emoji.className = "cat-reaction-emoji";
+          emoji.textContent =
+            catReactionEmojis[
+              Math.floor(Math.random() * catReactionEmojis.length)
+            ];
+
+          const bubble = document.createElement("div");
+          bubble.className = "cat-reaction-bubble";
+          bubble.textContent =
+            catReactionWords[
+              Math.floor(Math.random() * catReactionWords.length)
+            ];
+
+          el.appendChild(emoji);
+          el.appendChild(bubble);
+          document.body.appendChild(el);
+          setTimeout(() => el.remove(), 1000);
+        }
+
+        document.addEventListener("click", (e) => {
+          const target = e.target;
+          const isBackgroundClick =
+            target === document.body ||
+            target === document.documentElement ||
+            (target.classList && target.classList.contains("container"));
+
+          if (!isBackgroundClick) return;
+          spawnCatReaction(e.clientX, e.clientY);
+        });
+      })();
     </script>
   </body>
 </html>
