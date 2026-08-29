@@ -61,7 +61,7 @@
       }
 
       .gallery-caption {
-        font-family: 'Pixelify Sans', sans-serif;
+        font-family: 'Pixelify Sans', monospace;
         color: #745078;
         font-size: 0.95rem;
         margin-top: 6px;
@@ -75,7 +75,7 @@
         color: #ffffff;
         border: 2px solid #db9498;
         border-radius: 20px;
-        font-family: 'Pixelify Sans', sans-serif;
+        font-family: 'Pixelify Sans', monospace;
         font-size: 1.1rem;
         text-decoration: none;
         transition: all 0.3s ease;
@@ -119,7 +119,7 @@
         color: #ffffff;
         border: 2px solid #db9498;
         border-radius: 20px;
-        font-family: 'Pixelify Sans', sans-serif;
+        font-family: 'Pixelify Sans', monospace;
         font-size: 1.1rem;
         text-decoration: none;
         transition: all 0.3s ease;
@@ -222,7 +222,10 @@
       </div>
 
       <!-- Back Button para makabalik sa gallery -->
-      <a href="gallery.html" class="back-btn">← back to gallery</a>
+      <div style="display: flex; gap: 15px; justify-content: center; margin-top: 40px; flex-wrap: wrap;">
+        <a href="gallery.html" class="back-btn" style="margin-top: 0;">← back to gallery</a>
+        <a href="memory.html" class="back-btn" style="margin-top: 0; border-color: #f6f1d8; color: #f6f1d8;">memory game 🎮</a>
+      </div>
     </div>
 
     <!-- Lightbox Modal para sa Zoom -->
@@ -278,6 +281,52 @@
           localStorage.setItem('isPlaying', 'true');
         }
       }, 500);
+      // === Click-the-Cats Easter Egg ===
+      // The background is wall-to-wall cats and cat-themed decorations, so
+      // any click on the decorative background (not on buttons/cards/other
+      // UI) pops a little heart/paw + "meow~" right at the cursor.
+      (function () {
+        const catReactionEmojis = ["❤️", "🐾"];
+        const catReactionWords = ["meow~", "purr~", "mrow!", "nya~"];
+
+        function spawnCatReaction(clientX, clientY) {
+          const el = document.createElement("div");
+          el.className = "cat-reaction";
+          el.style.left = `${clientX}px`;
+          el.style.top = `${clientY}px`;
+
+          const emoji = document.createElement("span");
+          emoji.className = "cat-reaction-emoji";
+          emoji.textContent =
+            catReactionEmojis[
+              Math.floor(Math.random() * catReactionEmojis.length)
+            ];
+
+          const bubble = document.createElement("div");
+          bubble.className = "cat-reaction-bubble";
+          bubble.textContent =
+            catReactionWords[
+              Math.floor(Math.random() * catReactionWords.length)
+            ];
+
+          el.appendChild(emoji);
+          el.appendChild(bubble);
+          document.body.appendChild(el);
+          setTimeout(() => el.remove(), 1000);
+        }
+
+        document.addEventListener("click", (e) => {
+          const target = e.target;
+          const isBackgroundClick =
+            target === document.body ||
+            target === document.documentElement ||
+            (target.classList && target.classList.contains("container"));
+
+          if (!isBackgroundClick) return;
+          spawnCatReaction(e.clientX, e.clientY);
+        });
+      })();
+
     </script>
   </body>
 </html>
